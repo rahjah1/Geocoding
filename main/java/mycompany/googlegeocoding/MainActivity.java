@@ -51,10 +51,10 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
             public boolean onQueryTextSubmit(String temp){
                 try {
                     if (temp.length() != 0) {
-                        System.out.println("Try: "+temp);
+
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(searchView.getApplicationWindowToken(), 0);
-                        System.out.println("Sending: "+temp);
+
                         g=new GeocodeTalking(temp,Map);
                         return true;
                     }

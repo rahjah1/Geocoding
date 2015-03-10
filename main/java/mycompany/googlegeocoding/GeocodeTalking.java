@@ -1,5 +1,6 @@
 package mycompany.googlegeocoding;
 
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -29,6 +30,7 @@ public class GeocodeTalking {
     JSONObject ReturnInfo;
     LatLng newLocation;
     public GoogleMap Map2;
+    String LocationName;
     public GeocodeTalking(String temp, GoogleMap Map){
         searchString=temp;
         Map2=Map;
@@ -58,7 +60,9 @@ public class GeocodeTalking {
                 JSONObject Location=ReturnInfo.getJSONArray("results").getJSONObject(0)
                         .getJSONObject("geometry").getJSONObject("location");
                 newLocation = new LatLng(Location.getDouble("lat"),Location.getDouble("lng"));
-                System.out.println(newLocation);
+                /*Location=ReturnInfo.getJSONArray("results").getJSONObject(0)
+                        .getString("formatted_address");
+                LocationName=Location.toString();*/
                 MoveMap();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -109,12 +113,10 @@ public class GeocodeTalking {
     }
       public void MoveMap() {
         try {
-            System.out.println("New marker at "+newLocation);
             Map2.addMarker(new MarkerOptions()
                     .position(newLocation)
-                    .title("University of Texas")
+                    //.title(LocationName)
                     .draggable(true));
-            System.out.println("Move camera");
             Map2.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 15));
         }
         catch (Exception e){
